@@ -1,10 +1,12 @@
-import React from 'react';
-import ProductCard from './components/ProductCard';
-import './LandingPage.css';
+// src/pages/AlreadyReg.jsx
 
-function LandingPage({ user, onLogout }) {
+import React from 'react'
+import ProductCard from '../components/ProductCard'
+import './AlreadyReg.css'
+
+function AlreadyReg({ user, onLogout }) {
   return (
-    <div className="landing-page">
+    <div className="alreadyreg-page">
       <nav className="navbar">
         <div className="logo">SKY</div>
         <div className="nav-links">
@@ -14,20 +16,17 @@ function LandingPage({ user, onLogout }) {
           </button>
         </div>
       </nav>
-
       <header className="hero">
         <h1>Hello, {user.firstName}!</h1>
         <p>Explore our exclusive collection of private jets</p>
       </header>
-
       <section className="products">
-        {/* Replace with a map over your real products array */}
         <ProductCard />
         <ProductCard />
         <ProductCard />
       </section>
     </div>
-  );
+  )
 }
 
-export default LandingPage;
+export default AlreadyReg

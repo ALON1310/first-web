@@ -51,63 +51,26 @@ function Register({ onLogin }) {
       <div className="register-form">
         <h2>Create Your Account</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              name="username"
-              id="username"
-              type="text"
-              value={form.username}
-              onChange={handleChange}
-            />
-            {errors.username && <p className="error">{errors.username}</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              name="email"
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              name="password"
-              id="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-            />
-            {errors.password && <p className="error">{errors.password}</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              name="confirmPassword"
-              id="confirmPassword"
-              type="password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-            />
-            {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-          </div>
+          {/* … username, email, password fields … */}
 
           <button type="submit">Register</button>
 
-          <p style={{ marginTop: "12px" }}>
+          <p style={{ textAlign: 'center', marginTop: 16 }}>
             Already have an account?{' '}
-            <a href="#" onClick={onLogin}>Login here</a>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                // here we “log in” with whatever identifier you want,
+                // for example, reuse the username field or a dummy:
+                onLogin({ firstName: form.username || 'User' })
+              }}
+            >
+              Login here
+            </a>
           </p>
         </form>
       </div>
     </div>
-  );
+  )
 }
-
-export default Register;

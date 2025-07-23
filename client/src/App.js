@@ -1,28 +1,29 @@
-import { useState } from "react";
-import "./App.css";
-import ProductCard from "./components/ProductCard";
-import Register from "./pages/Register";
+import React, { useState } from 'react'
+import Register from './pages/Register'
+import AlreadyReg from './pages/AlreadyReg'
 
 function App() {
-  const [userName, setUserName] = useState(null);
+  const [user, setUser] = useState(null)
 
-  const handleRegister = (name) => {
-    setUserName(name);
-  };
+  // Called when Register wants to “log in” or register
+  const handleLogin = (userData) => {
+    setUser(userData)
+  }
+
+  // Called from AlreadyReg to log out
+  const handleLogout = () => {
+    setUser(null)
+  }
 
   return (
     <div className="App">
-      {!userName ? (
-        <Register onRegister={handleRegister} />
+      {user ? (
+        <AlreadyReg user={user} onLogout={handleLogout} />
       ) : (
-        <>
-          <h1>Welcome, {userName}!</h1>
-          <ProductCard />
-        </>
+        <Register onLogin={handleLogin} />
       )}
     </div>
-  );
+  )
 }
 
-export default App;
-
+export default App
