@@ -1,29 +1,53 @@
-import React, { useState } from 'react'
-import Register from './pages/Register'
-import AlreadyReg from './pages/AlreadyReg'
+import React, { useState } from 'react';
+import Register   from './pages/register';
+import AlreadyReg from './pages/AlreadyReg';
+import LandingPage from './pages/LandingPage';
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
+  const [view, setView] = useState('register');
+  // view: 'register' | 'login' | 'landing'
 
-  // Called when Register wants to “log in” or register
-  const handleLogin = (userData) => {
-    setUser(userData)
-  }
+  // Called by both Register and AlreadyReg on success
+  const handleLogin = userData => {
+    setUser(userData);
+    setView('landing');
+  };
 
-  // Called from AlreadyReg to log out
+  // Logout from LandingPage
   const handleLogout = () => {
-    setUser(null)
+    setUser(null);
+    setView('register');
+  };
+
+  if (!user && view === 'login') {
+    return (
+      <AlreadyReg
+        onLogin={handleLogin}
+        onBackToRegister={() => setView('register')}
+      />
+    );
   }
 
-  return (
-    <div className="App">
-      {user ? (
-        <AlreadyReg user={user} onLogout={handleLogout} />
-      ) : (
-        <Register onLogin={handleLogin} />
-      )}
-    </div>
-  )
+  if (!user && view === 'register') {
+    return (
+      <Register
+        onLogin={handleLogin}
+        onShowLogin={() => setView('login')}
+      />
+    );
+  }
+
+  if (user && view === 'landing') {
+    return (
+      <LandingPage
+        user={user}
+        onLogout={handleLogout}
+      />
+    );
+  }
+
+  return null;
 }
 
-export default App
+export default App;
