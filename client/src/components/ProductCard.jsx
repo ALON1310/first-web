@@ -1,19 +1,29 @@
-// client/src/components/ProductCard.jsx
-import jetImage from '../assets/jet.png';
-function ProductCard() {
+// src/components/ProductCard.jsx
+import React from 'react';
+import './ProductCard.css';
+
+/**
+ * ProductCard component renders details of a single jet,
+ * and provides an Add to Cart button.
+ */
+function ProductCard({ jet, onAddToCart }) {
   return (
     <div className="product-card">
-        <img
-        src={jetImage}
-        alt="Private Jet"
-        className="product-image"
-        />
-      <h2>Golfsream G450</h2>
-      <p>Privat Jet with full of life-style experience , the ultimate way to fly</p>
-      <p className="price">$12,500,000</p>
-      <button>BUY NOW</button>
-    </div>
+      {/* Jet image */}
+      <img src={jet.imageUrl} alt={jet.name} className="product-image" />
 
+      {/* Jet name and description */}
+      <h3>{jet.name}</h3>
+      <p>{jet.description}</p>
+
+      {/* Price and Add to Cart button */}
+      <div className="product-footer">
+        <span className="price">${jet.price.toLocaleString()}</span>
+        <button onClick={() => onAddToCart(jet)}>
+          Add to Cart
+        </button>
+      </div>
+    </div>
   );
 }
 

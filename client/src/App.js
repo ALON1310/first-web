@@ -1,50 +1,53 @@
+// src/App.js
 import React, { useState } from 'react';
-import Register   from './pages/register';
+import Register from './pages/register';
 import AlreadyReg from './pages/AlreadyReg';
-import LandingPage from './pages/LandingPage';
+import StoreScreen from './pages/StoreScreen';
+import CartPage from './pages/CartPage';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [view, setView] = useState('register');
-  // view: 'register' | 'login' | 'landing'
+  const [view, setView] = useState('register'); // 'register' | 'login' | 'store' | 'cart'
+  const [cart, setCart] = useState([]);
 
-  // Called by both Register and AlreadyReg on success
-  const handleLogin = userData => {
+  // Handle successful register or login
+  const handleLogin = (userData) => {
     setUser(userData);
-    setView('landing');
+    setView('store');
   };
 
-  // Logout from LandingPage
+  // Logout and clear cart
   const handleLogout = () => {
     setUser(null);
+    setCart([]);
     setView('register');
   };
 
+  // Add a jet to cart
+  const handleAddToCart = (jet) => {
+    setCart(prev => [...prev, jet]);
+  };
+
+  // Render based on current view
   if (!user && view === 'login') {
-    return (
-      <AlreadyReg
-        onLogin={handleLogin}
-        onBackToRegister={() => setView('register')}
-      />
-    );
+    return <AlreadyReg onLogin={handleLogin} onBackToRegister={() => setView('register')} />;
   }
-
   if (!user && view === 'register') {
-    return (
-      <Register
-        onLogin={handleLogin}
-        onShowLogin={() => setView('login')}
-      />
-    );
+    return <Register onLogin={handleLogin} onShowLogin={() => setView('login')} />;
   }
-
-  if (user && view === 'landing') {
+  if (user && view === 'store') {
     return (
-      <LandingPage
+      <StoreScreen
         user={user}
+        cart={cart}
+        onAddToCart={handleAddToCart}
+        onShowCart={() => setView('cart')}
         onLogout={handleLogout}
       />
     );
+  }
+  if (user && view === 'cart') {
+    return <CartPage cart={cart} onBack={() => setView('store')} />;
   }
 
   return null;

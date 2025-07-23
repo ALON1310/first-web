@@ -1,0 +1,30 @@
+/* src/pages/CardPage.css */
+.cart-page {
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+.cart-table th,
+.cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.cart-table img {
+  width: 80px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
