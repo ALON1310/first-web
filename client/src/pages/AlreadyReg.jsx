@@ -1,3 +1,4 @@
+// src/pages/AlreadyReg.jsx
 import React, { useState } from 'react';
 import './AlreadyReg.css';
 
@@ -9,21 +10,28 @@ const existingUsers = [
 
 function AlreadyReg({ onLogin, onBackToRegister }) {
   const [form, setForm] = useState({ identifier: '', password: '' });
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
 
   const handleChange = e => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    if (name === 'rememberMe') {
+      setRememberMe(checked);
+    } else {
+      setForm(prev => ({ ...prev, [name]: value }));
+    }
     setError('');
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     const { identifier, password } = form;
+
     if (!identifier || !password) {
       setError('Both fields are required.');
       return;
     }
+
     const user = existingUsers.find(
       u =>
         u.username.toLowerCase() === identifier.toLowerCase() ||
@@ -37,6 +45,21 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
       setError('Incorrect password.');
       return;
     }
+
+    // Set the cookie
+    const expires = new Date();
+    if (rememberMe) {
+      // add 12 days
+      expires.setDate(expires.getDate() + 12);
+    } else {
+      // add 30 minutes
+      expires.setTime(expires.getTime() + 30 * 60 * 1000);
+    }
+    document.cookie = `skyUser=${encodeURIComponent(
+      user.username
+    )}; expires=${expires.toUTCString()}; path=/`;
+
+    // Notify App that login succeeded
     onLogin({ firstName: user.username, email: user.email });
   };
 
@@ -66,6 +89,18 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
               value={form.password}
               onChange={handleChange}
             />
+          </div>
+
+          <div className="form-group">
+            <label className="checkbox-label">
+              <input
+                name="rememberMe"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleChange}
+              />
+              Remember me
+            </label>
           </div>
 
           {error && <p className="error">{error}</p>}
