@@ -4,4 +4,6 @@
   padding: 40px;
   font-family: Arial, sans-serif;
 }
-
+.page-content {
+  padding-top: 70px; /* gives room below menu */
+}

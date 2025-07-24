@@ -1,0 +1,117 @@
+/* src/pages/PayScreen.css */
+
+.pay-screen {
+  position: relative;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Inter, sans-serif;
+  padding: 20px;
+}
+.top-back-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  transform: scale(1.03);
+}
+
+
+.payment-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 500px;
+}
+
+.payment-title {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #222;
+  text-align: center;
+}
+
+.payment-total {
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #444;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #000507;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+.half {
+  flex: 1;
+}
+
+.payment-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pay-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pay-button:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+}
+
+@media (max-width: 500px) {
+  .row {
+    flex-direction: column;
+  }
+}
+.top-back-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+

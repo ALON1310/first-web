@@ -2,8 +2,7 @@
 import React, { useMemo } from 'react';
 import './CartPage.css';
 
-function CartPage({ cart, onBack }) {
-  // Aggregate items by id
+function CartPage({ cart, onBack, onRemove, onCheckout }) {
   const items = useMemo(() => {
     const map = {};
     cart.forEach(jet => {
@@ -19,41 +18,57 @@ function CartPage({ cart, onBack }) {
   );
 
   return (
-    <div className="cart-page">
-      <h2>Your Cart</h2>
-      <button className="back-btn" onClick={onBack}>Back to Store</button>
-      {items.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
+    <div className="cart-page-container">
+      <header className="cart-header">
+        <button className="back-btn" onClick={onBack}>← Back to Store</button>
+      </header>
+      <h2> My Cart</h2>
+ 
+      <div className="cart-content">
+        {items.length === 0 ? (
+          <div className="empty-cart">Your cart is empty.</div>
+        ) : (
+          <div className="cart-items-grid">
             {items.map(item => (
-              <tr key={item.id}>
-                <td><img src={item.imageUrl} alt={item.name} /></td>
-                <td>{item.name}</td>
-                <td>${item.price.toLocaleString()}</td>
-                <td>{item.quantity}</td>
-                <td>${(item.price * item.quantity).toLocaleString()}</td>
-              </tr>
+              <div className="cart-item-card" key={item.id}>
+                <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+                <div className="cart-item-details">
+                  <h3 className="cart-item-name">{item.name}</h3>
+                  <p className="cart-item-price">${item.price.toLocaleString()}</p>
+                  <p className="cart-item-quantity">Qquantity: {item.quantity}</p>
+                  <p className="cart-item-subtotal">
+                    Subtotal: ${(item.price * item.quantity).toLocaleString()}
+                  </p>
+                 <button
+                    type="button" // prevents default form behavior
+                    className="remove-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onRemove(item.id);
+                    }}
+                    >
+                    🗑 Remove
+                </button>
+
+                </div>
+              </div>
             ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan="4">Total</td>
-              <td>${total.toLocaleString()}</td>
-            </tr>
-          </tfoot>
-        </table>
-      )}
+          </div>
+        )}
+
+        {items.length > 0 && (
+          <>
+            <div className="cart-total">
+              <span>Total</span>
+              <span>${total.toLocaleString()}</span>
+            </div>
+
+            <button className="pay-button" onClick={onCheckout}>
+              Proceed to Payment
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

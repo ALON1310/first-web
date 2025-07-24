@@ -1,111 +1,136 @@
-/* Register.css - page-level styles for Register component */
+/* src/pages/Register.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Segoe+UI:wght@400;700;900&display=swap');
+
 .register-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background: #f0f2f5;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .register-form {
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
-  max-width: 450px;
-  background: #ffffff;
-  padding: 32px;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .register-form h2 {
-  font-size: 24px;
-  margin-bottom: 24px;
   text-align: center;
-  color: #333;
+  margin-bottom: 24px;
+  font-size: 26px;
+  color: #1a1a1a;
+  font-weight: 600;
 }
 
 .form-group {
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
 }
 
 .form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #555;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #000000;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="password"],
-.form-group input[type="date"],
-.react-select__control {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
+.form-group input[type="password"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #3f2828;
+  font-size: 14px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-.form-group input:focus,
-.react-select__control--is-focused {
-  border-color: #007bff;
-  outline: none;
-}
-
-.radio-group {
-  display: flex;
-  gap: 16px;
-}
-
-.radio-group label {
+.checkbox-label {
+  font-size: 14px;
+  color: #555;
   display: flex;
   align-items: center;
-  font-weight: 400;
-}
-
-.radio-group input {
-  margin-right: 6px;
-}
-
-.error {
-  color: #d93025;
-  font-size: 13px;
-  margin-top: 4px;
+  gap: 8px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 button[type="submit"] {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
   border: none;
-  border-radius: 4px;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background 0.3s ease;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 600;
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to right, #1900fe, #4facfe);
 }
 
-.register-form p {
+.switch-link {
   text-align: center;
   margin-top: 16px;
   font-size: 14px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-.register-form p a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.register-form p a:hover {
+.link-button {
+  background: none;
+  border: none;
+  color: #0077cc;
+  cursor: pointer;
   text-decoration: underline;
+  font-size: 14px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Professional Branding: SKY and Jet Store */
+.navbar .logo {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  color: #002244; /* Deep navy */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  margin-left: 20px;
+}
+
+.store-header h1 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #003366;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Optional logo icon styling */
+.logo::before {
+  content: '\2708'; /* airplane symbol */
+  margin-right: 8px;
+  font-size: 28px;
+  vertical-align: middle;
+  color: #0077cc;
 }
