@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import './AlreadyReg.css';
 
-// Now includes admin/admin
-const existingUsers = [
-  { username: 'admin', email: 'admin@example.com', password: 'admin' },
-  { username: 'john',  email: 'john@example.com',  password: 'Password1' },
-  { username: 'sara',  email: 'sara@example.com',  password: 'SaraPass2' },
-  { username: 'mike',  email: 'mike@example.com',  password: 'Mike1234' },
-];
+// ========================================
+// 👤 Hardcoded Admin User for Local Testing
+// ========================================
+const adminUser = {
+  username: 'admin',
+  email: 'admin@example.com',
+  password: 'admin'
+};
 
 function AlreadyReg({ onLogin, onBackToRegister }) {
+  // =========================
+  // 🔧 Component State
+  // =========================
   const [form, setForm] = useState({ identifier: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
 
+  // =========================
+  // 🖊️ Input Change Handler
+  // =========================
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === 'rememberMe') {
@@ -24,60 +31,97 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
     setError('');
   };
 
-  const handleSubmit = e => {
+  // =========================
+  // 🚀 Login Submit Handler
+  // =========================
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { identifier, password } = form;
+
+    // 1️⃣ Client-side validation
     if (!identifier || !password) {
       setError('Both fields are required.');
       return;
     }
-    // Find user by username or email
-    const user = existingUsers.find(
-      u =>
-        u.username.toLowerCase() === identifier.toLowerCase() ||
-        u.email.toLowerCase()    === identifier.toLowerCase()
-    );
-    if (!user) {
-      setError('No such user. Please register first.');
+
+    // 2️⃣ Check if it's the hardcoded admin user
+    const isAdminLogin =
+      (identifier.toLowerCase() === adminUser.username.toLowerCase() ||
+       identifier.toLowerCase() === adminUser.email.toLowerCase()) &&
+      password === adminUser.password;
+
+    if (isAdminLogin) {
+      // Set cookie for session persistence
+      const expires = new Date();
+      if (rememberMe) expires.setDate(expires.getDate() + 12); // 12 days
+      else expires.setTime(expires.getTime() + 30 * 60000);     // 30 min
+
+      document.cookie = `skyUser=${encodeURIComponent(
+        adminUser.username
+      )}; expires=${expires.toUTCString()}; path=/`;
+
+      // Notify App of successful login
+      onLogin({ firstName: adminUser.username, email: adminUser.email });
       return;
     }
-    if (user.password !== password) {
-      setError('Incorrect password.');
-      return;
+
+    // 3️⃣ Send login request to backend for registered users
+    try {
+      const res = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Allows cookies from backend
+        body: JSON.stringify({ username: identifier, password })
+      });
+
+      const data = await res.json();
+
+      // Handle invalid credentials
+      if (!res.ok) {
+        setError(data.error || 'Login failed');
+        return;
+      }
+
+      // Set login cookie
+      const expires = new Date();
+      if (rememberMe) expires.setDate(expires.getDate() + 12);
+      else expires.setTime(expires.getTime() + 30 * 60000);
+
+      document.cookie = `skyUser=${encodeURIComponent(
+        data.username
+      )}; expires=${expires.toUTCString()}; path=/`;
+
+      // Let app know user is logged in
+      onLogin({ username: data.username, email: data.email });
+    } catch (err) {
+      console.error(err);
+      setError('Network error. Try again later.');
     }
-
-    // Set cookie expiry
-    const expires = new Date();
-    if (rememberMe) expires.setDate(expires.getDate() + 12);
-    else expires.setTime(expires.getTime() + 30 * 60000);
-
-    document.cookie = `skyUser=${encodeURIComponent(
-      user.username
-    )}; expires=${expires.toUTCString()}; path=/`;
-
-    // Notify App of successful login
-    onLogin({ firstName: user.username, email: user.email });
   };
 
+  // =========================
+  // 🧱 UI Render
+  // =========================
   return (
     <div className="alreadyreg-page">
       <div className="login-form">
         <h2>Log In to SKY</h2>
         <form onSubmit={handleSubmit}>
-          {/* Identifier */}
+          {/* Identifier Field */}
           <div className="form-group">
             <label htmlFor="identifier">Username or Email</label>
             <input
               id="identifier"
               name="identifier"
               type="text"
-              placeholder="admin or admin@example.com"
+              placeholder="admin or your email"
               value={form.identifier}
               onChange={handleChange}
+              required
             />
           </div>
 
-          {/* Password */}
+          {/* Password Field */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -86,6 +130,7 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
               type="password"
               value={form.password}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -102,11 +147,13 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
             </label>
           </div>
 
+          {/* Error Message */}
           {error && <p className="error">{error}</p>}
 
+          {/* Submit Button */}
           <button type="submit">Log In</button>
 
-          {/* Back to Register */}
+          {/* Switch to Registration */}
           <p className="switch-link">
             Don’t have an account?{' '}
             <button

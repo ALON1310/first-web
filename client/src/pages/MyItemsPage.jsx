@@ -8,19 +8,22 @@ function MyItemsPage({ purchasedItems, onBackToStore }) {
       <header className="items-header">
         <button className="back-btn" onClick={onBackToStore}>← Back to Store</button>
       </header>
-      <h2> MY Items
-      </h2>
+      <h2>MY Jets</h2>
 
-      {purchasedItems.length === 0 ? (
+      {(!purchasedItems || purchasedItems.length === 0) ? (
         <p className="empty-message">You haven’t bought any jets yet.</p>
       ) : (
         <div className="items-grid">
           {purchasedItems.map((item, index) => (
             <div key={index} className="item-card">
-              <img src={item.imageUrl} alt={item.name} className="item-image" />
+              <img
+                src={item.imageUrl || item.image || '/fallback.jpg'}
+                alt={item.name || 'Unnamed Jet'}
+                className="cart-item-image"
+              />
               <div className="item-info">
-                <h3>{item.name}</h3>
-                <p>Price: ${item.price.toLocaleString()}</p>
+                <h3>{item.name || 'Unnamed Jet'}</h3>
+                <p>Price: ${item.price?.toLocaleString?.() || 'N/A'}</p>
               </div>
             </div>
           ))}

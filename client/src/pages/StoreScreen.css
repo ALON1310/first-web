@@ -1,93 +1,77 @@
-/* StoreScreen.css */
+/* src/pages/StoreScreen.css */
 
 .store-screen-page {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #000000, #6e9baa, #00090c);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  color: #0c0000;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-/* Navbar */
-.store-screen-page .navbar {
-  display: flex;
+/* NAVBAR */
+.navbar {
+  background-color: #c6cbca;
+  padding: 16px 32px;
+}
+
+/* HEADER */
+.store-header {
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background: linear-gradient(to bottom, #ffffff, #ffffff, #132e2d);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: linear-gradient(to bottom, #091f28, #203a43, #2ca4d7);
 }
-.store-screen-page .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000408;
-}
-.store-screen-page .nav-links {
+/* Container holding both search and button side by side */
+.header-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px; /* space between input and button */
+  flex-wrap: wrap; /* responsive wrap on small screens */
 }
-.store-screen-page .greeting {
+
+/* Search input styling */
+.header-controls input {
+  height: 10px;
   font-size: 16px;
-  color: #333;
-}
-.store-screen-page .logout-btn {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.store-screen-page .logout-btn:hover {
-  background-color: #0056b3;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
 }
 
-/* Hero Section */
-.store-screen-page .hero {
-  text-align: center;
-  padding: 60px 20px;
-  background-color: #007bff;
-  color: #fff;
-}
-.store-screen-page .hero h1 {
-  margin-bottom: 12px;
-  font-size: 36px;
-}
-.store-screen-page .hero p {
-  font-size: 18px;
-}
-
-/* Products Grid */
-.store-screen-page .products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  padding: 40px 32px;
+/* Cart button styling to match input height */
+.cart-button {
+  height: 40px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fafafa;
+  color: #0f2027;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
 }
 
-/* Ensure ProductCard background */
-.store-screen-page .product-card {
-  background-color: #ffffff;
-}
-/* StoreScreen.css */
-
-/* Page layout */
-.store-screen-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
+.cart-button:hover {
+  background-color: #032a30;
+  color: #2ca4d7;
 }
 
-/* Navbar and header styling... */
 
-/* Grid of cards */
+/* PRODUCT GRID */
 .products-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
-  /* auto-fill as many 280px‑wide cards as fit, stretch to fill on smaller screens */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   padding: 32px;
+}
+
+/* EMPTY MESSAGE */
+.empty-message {
+  font-size: 18px;
+  text-align: center;
+  padding: 48px;
+  color: #bbb;
 }

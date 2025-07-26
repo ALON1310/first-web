@@ -10,7 +10,11 @@ function ProductCard({ jet, onAddToCart }) {
   return (
     <div className="product-card">
       {/* Jet image */}
-      <img src={jet.imageUrl} alt={jet.name} className="product-image" />
+      <img
+      src={jet.imageUrl}
+      alt={jet.name}
+      className="product-image"
+    />
 
       {/* Jet name and description */}
       <h3>{jet.name}</h3>
