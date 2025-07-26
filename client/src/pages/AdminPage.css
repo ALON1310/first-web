@@ -1,0 +1,136 @@
+/* AdminPage.css */
+
+.admin-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 3rem;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+.filter-input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.image-drop-area {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.image-preview {
+  position: relative;
+  margin-top: 10px;
+}
+
+.image-preview img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.add-button,
+.delete-button,
+.back-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.back-btn {
+  background-color: #6c757d;
+}
+
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.product-thumb {
+  width: 60px;
+  height: auto;
+  margin-right: 16px;
+  border-radius: 6px;
+}
+
+.product-details {
+  flex-grow: 1;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.activity-table th,
+.activity-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.activity-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.activity-table tr:hover {
+  background-color: #f1f1f1;
+}

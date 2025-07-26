@@ -1,4 +1,3 @@
-// ✅ PayScreen.jsx
 import React, { useState } from 'react';
 import './PayScreen.css';
 
@@ -37,7 +36,12 @@ function PayScreen({ total, cart, user, onBack, onConfirm, onClearCart, setPurch
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const username = getCookie('skyUser');
+    const usernameRaw = getCookie('skyUser');
+    const username = usernameRaw ? usernameRaw.trim() : null;
+
+    console.log('🧪 Cookie:', document.cookie);
+    console.log('🧪 Username from cookie:', username);
+
     if (!username) {
       alert('⚠️ You must be logged in to complete the purchase');
       return;
@@ -56,7 +60,10 @@ function PayScreen({ total, cart, user, onBack, onConfirm, onClearCart, setPurch
         return { ...rest, imageUrl: validUrl };
       });
 
-      const res = await fetch(`http://localhost:3001/api/purchase/${username}`, {
+      const endpoint = `http://localhost:3001/api/purchase/${username}`;
+      console.log('📤 Sending POST to:', endpoint);
+
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: cleanedCart }),
