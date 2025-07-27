@@ -41,7 +41,27 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
       image: base64Image
     };
 
-    setStoreItems(prev => [...prev, newProduct]);
+    try {
+      const res = await fetch('http://localhost:3001/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProduct)
+      });
+
+      if (!res.ok) throw new Error('Failed to save product to server');
+
+      // If success, add to store
+      setStoreItems(prev => [...prev, newProduct]);
+
+      // Optionally show success message
+      console.log('✅ Product saved to server');
+    } catch (err) {
+      console.error('❌ Error saving product to server:', err);
+      alert('Failed to save product to server.');
+    }
+
     setNewItem({ name: '', price: '', imageFile: null, image: '' });
     fileInputRef.current.value = null;
 

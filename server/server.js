@@ -37,7 +37,7 @@ const limiter = rateLimit({
 app.use(limiter); // Register the limiter as middleware
 
 // 🧠 JSON parsing for POST/PUT body
-app.use(express.json()); // Automatically parse incoming JSON payloads
+app.use(express.json({ limit: '5mb' })); // or even '10mb' if needed
 app.use(cookieParser()); // Enables parsing cookies from requests
 
 // ======================
@@ -96,7 +96,7 @@ try {
   app.use('/api/register', registerRoutes(users, saveAllData));
   app.use('/api/cart', cartRoutes(carts, activityLog));
   app.use('/api/purchase', purchaseRoutes(purchases, carts, activityLog, saveAllData));
-  app.use('/api/products', productsRoutes()); // No state needed
+  app.use('/api/products', productsRoutes); // No state needed
   app.use('/api/me', meRoutes(users));
   app.use('/api/logout', logoutRoutes());
 } catch (err) {

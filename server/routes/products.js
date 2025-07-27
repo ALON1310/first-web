@@ -1,12 +1,43 @@
-// ✅ products.js (server/routes/products.js)
 const express = require('express');
+const router = express.Router();
+const { loadJSON, saveJSON } = require('../helpers/persist_module');
+const path = require('path');
 
-module.exports = (storeItems) => {
-  const router = express.Router();
+const jetsPath = path.join(__dirname, '../data/jets.json');
 
-  router.get('/', (req, res) => {
-    res.status(200).json(storeItems);
-  });
+// POST /api/products
+router.post('/', async (req, res) => {
+  const newJet = req.body;
+  newJet.id = Date.now();
 
-  return router;
-};
+  console.log('📥 Received new product:', newJet); // ← Add this!
+
+  if (!newJet.name || !newJet.price || (!newJet.image && !newJet.imageUrl)) {
+    console.log('❌ Invalid product data:', newJet);
+    return res.status(400).json({ error: 'Invalid product data' });
+  }
+
+  try {
+    const jets = await loadJSON(jetsPath);
+    jets.push(newJet);
+    await saveJSON(jetsPath, jets);
+    res.status(201).json({ message: 'Product added successfully' });
+  } catch (err) {
+    console.error('Error saving new product:', err);
+    res.status(500).json({ error: 'Failed to save product' });
+  }
+});
+
+// GET /api/products
+router.get('/', async (req, res) => {
+  try {
+    const jets = await loadJSON(jetsPath);
+    res.json(jets);
+  } catch (err) {
+    console.error('Error loading products:', err);
+    res.status(500).json({ error: 'Failed to load products' });
+  }
+});
+
+
+module.exports = router;

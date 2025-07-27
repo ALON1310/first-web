@@ -1,5 +1,6 @@
 // src/App.js
 import React, { useState, useMemo } from 'react';
+import { useEffect } from 'react';
 
 // Pages
 import Register from './pages/register';
@@ -119,6 +120,20 @@ const jets = useMemo(() => [
       <Component {...props} />
     </>
   );
+
+  useEffect(() => {
+    const fetchStoreItems = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/api/products');
+        const backendJets = await res.json();
+        setStoreItems([...jets, ...backendJets]); // merge with initial jets
+      } catch (err) {
+        console.error('❌ Failed to load jets from backend:', err);
+      }
+    };
+
+    fetchStoreItems();
+  }, []);
 
   if (!user && view === 'login') {
     return <AlreadyReg onLogin={handleLogin} onBackToRegister={() => setView('register')} />;
