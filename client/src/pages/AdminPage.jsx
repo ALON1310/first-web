@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './AdminPage.css';
 import Logo from '../components/Logo';
 
@@ -19,6 +19,8 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
     imageFile: null,
     image: '' // base64 image
   });
+
+  const fileInputRef = useRef(null);
 
   const [filterPrefix, setFilterPrefix] = useState('');
 
@@ -41,6 +43,7 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
 
     setStoreItems(prev => [...prev, newProduct]);
     setNewItem({ name: '', price: '', imageFile: null, image: '' });
+    fileInputRef.current.value = null;
 
     if (setActivityLog) {
       setActivityLog(prev => [
@@ -125,13 +128,20 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
         onDragOver={handleDragOver}
       >
         <p>Drag & drop an image or choose a file</p>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        {newItem.image && newItem.imageFile && (
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        {newItem.imageFile && typeof newItem.image === 'string' && newItem.image.startsWith('data:image') && (
           <div className="image-preview">
             <img src={newItem.image} alt="Preview" />
             <button
               className="remove-image"
-              onClick={() => setNewItem(prev => ({ ...prev, imageFile: null, image: '' }))}
+              onClick={() =>
+                setNewItem(prev => ({ ...prev, imageFile: null, image: '' }))
+              }
             >❌</button>
           </div>
         )}
@@ -143,9 +153,6 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
       <div className="products-list">
         {storeItems.map(item => (
           <div key={item.id} className="product-row">
-            {item.image && (
-              <img src={item.image} alt={item.name} className="product-thumb" />
-            )}
             <div className="product-details">
               <strong>{item.name}</strong> - ${item.price.toLocaleString()}
             </div>
