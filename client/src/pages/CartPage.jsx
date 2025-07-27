@@ -33,7 +33,11 @@ function CartPage({ cart, onBack, onRemove, onCheckout }) {
           <div className="cart-items-grid">
             {items.map(item => (
               <div className="cart-item-card" key={item.id}>
-              <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+              <img
+                src={item.imageUrl || item.image}
+                alt={item.name}
+                className="cart-item-image"
+              />
                 <div className="cart-item-details">
                   <h3 className="cart-item-name">{item.name}</h3>
                   <p className="cart-item-price">${item.price.toLocaleString()}</p>
