@@ -104,33 +104,60 @@ button[type="submit"]:hover {
 }
 
 /* Professional Branding: SKY and Jet Store */
-.navbar .logo {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  font-weight: 900;
-  font-size: 40px;
-  color: #002244; /* Deep navy */
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  margin-left: 20px;
-}
-
-.store-header h1 {
-  font-size: 44px;
-  font-weight: 700;
-  color: #003366;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+.logo {
+  display: flex;
+  flex-direction: column;         /* Stack text and emoji vertically */
+  align-items: center;            /* Center horizontally */
+  font-family: 'Segoe UI', 'Inter', sans-serif;
   text-align: center;
   margin-bottom: 24px;
-  letter-spacing: 1.5px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Optional logo icon styling */
-.logo::before {
-  content: '\2708'; /* airplane symbol */
-  margin-right: 8px;
-  font-size: 28px;
-  vertical-align: middle;
-  color: #0077cc;
+.logo-text {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
+
+.logo-plane {
+  font-size: 48px;               /* Make the airplane big */
+  line-height: 1;
+  margin-top: 4px;
+}
+.logo-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.logo-plane {
+  position: absolute;
+  font-size: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  opacity: 0.15; /* subtle background feel */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.logo-text {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: 'Segoe UI', 'Inter', sans-serif;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  position: relative;
+}
+
+

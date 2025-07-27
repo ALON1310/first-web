@@ -4,7 +4,7 @@ import './ProductCard.css';
 function ProductCard({ jet, onAddToCart, onRemoveFromCart, countInCart }) {
   return (
     <div className="product-card">
-      <img src={jet.imageUrl} alt={jet.name} className="product-image" />
+      <img src={jet.image || jet.imageUrl} alt={jet.name} className="product-image" />
 
       <h3>{jet.name}</h3>
       <p>{jet.description}</p>

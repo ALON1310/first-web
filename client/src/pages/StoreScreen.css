@@ -9,39 +9,14 @@
 
 /* NAVBAR */
 .navbar {
-  background: linear-gradient(to right, #222d32, #203a43, #0f2027); /* galaxy-like gradient */
+  background: linear-gradient(to right, #222d32, #203a43, #0f2027);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 32px;
+  justify-content: center; /* Center logo */
+  padding: 32px 0;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* HEADER */
-.store-header {
-  justify-content: space-between;
-  align-items: center;
-  background-color: linear-gradient(to bottom, #091f28, #203a43, #2ca4d7);
-}
-
-/* Container holding both search and button side by side */
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px; /* space between input and button */
-  flex-wrap: wrap; /* responsive wrap on small screens */
-}
-
-/* Search input styling */
-.header-controls input {
-  height: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.3s ease;
+  height: 120px;
+  position: relative;
 }
 
 /* Cart button styling */
@@ -76,25 +51,6 @@
   padding: 32px;
 }
 
-/* src/pages/StoreScreen.css */
-
-.store-screen-page {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-  color: #005eeb;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-}
-
-/* NAVBAR */
-.navbar {
-  background: linear-gradient(to right, #222d32, #203a43, #0f2027); /* galaxy-like gradient */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 32px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
 /* HEADER */
 .store-header {
   justify-content: space-between;
@@ -106,8 +62,8 @@
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 16px; /* space between input and button */
-  flex-wrap: wrap; /* responsive wrap on small screens */
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 /* Search input styling */
@@ -130,22 +86,6 @@
   color: #bbb;
 }
 
-/* LOGO */
-.logo {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Segoe UI', 'Inter', sans-serif;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 /* SEARCH INPUT */
 .search-input {
   height: 40px;
@@ -173,63 +113,11 @@
   box-shadow: 0 0 16px rgba(0, 198, 255, 0.4);
 }
 
-
-
+/* PRODUCT IMAGE */
 .product-card img {
   width: 100%;
   height: 160px;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 16px;
-}
-
-/* EMPTY MESSAGE */
-.empty-message {
-  font-size: 18px;
-  text-align: center;
-  padding: 48px;
-  color: #bbb;
-}
-
-/* LOGO */
-.logo {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Segoe UI', 'Inter', sans-serif;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* SEARCH INPUT */
-.search-input {
-  height: 40px;
-  padding: 0 16px;
-  font-size: 16px;
-  font-weight: 500;
-  background: #ffffff;
-  color: #0f2027;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  flex-grow: 1;
-  min-width: 240px;
-}
-
-.search-input::placeholder {
-  color: #999;
-  font-weight: 400;
-}
-
-.search-input:focus {
-  background: #f0faff;
-  box-shadow: 0 0 16px rgba(0, 198, 255, 0.4);
 }

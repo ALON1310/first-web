@@ -1,6 +1,7 @@
 // src/pages/CartPage.jsx
 import React, { useMemo } from 'react';
 import './CartPage.css';
+import Logo from '../components/Logo';
 
 function CartPage({ cart, onBack, onRemove, onCheckout }) {
   const items = useMemo(() => {
@@ -19,6 +20,7 @@ function CartPage({ cart, onBack, onRemove, onCheckout }) {
 
   return (
     <div className="cart-page-container">
+      <Logo />
       <header className="cart-header">
         <button className="back-btn" onClick={onBack}>← Back to Store</button>
       </header>
@@ -51,8 +53,10 @@ function CartPage({ cart, onBack, onRemove, onCheckout }) {
                 </button>
 
                 </div>
+                
               </div>
             ))}
+            
           </div>
         )}
 

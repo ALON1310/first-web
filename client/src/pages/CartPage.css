@@ -57,10 +57,12 @@
 }
 
 .cart-items-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  justify-content: center; /* center when only one */
 }
+
 
 /* CART ITEM CARD */
 .cart-item-card {
@@ -75,6 +77,8 @@
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
+  max-width: 360px;
+  width: 100%;
 }
 
 .cart-item-card:hover {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AlreadyReg.css';
-
+import Logo from '../components/Logo';
 // ========================================
 // 👤 Hardcoded Admin User for Local Testing
 // ========================================
@@ -106,7 +106,7 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
   return (
     <div className="alreadyreg-page">
       <div className="login-form">
-        <h2>Log In to SKY</h2>
+        <Logo />
         <form onSubmit={handleSubmit}>
           {/* Identifier Field */}
           <div className="form-group">
@@ -115,6 +115,7 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
               id="identifier"
               name="identifier"
               type="text"
+              className="input"
               placeholder="admin or your email"
               value={form.identifier}
               onChange={handleChange}
@@ -129,6 +130,7 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
               id="password"
               name="password"
               type="password"
+              className="input"
               value={form.password}
               onChange={handleChange}
               required
@@ -152,18 +154,19 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
           {error && <p className="error">{error}</p>}
 
           {/* Submit Button */}
-          <button type="submit">Log In</button>
+          <button type="submit" className="primary-button">Log In</button>
+
 
           {/* Switch to Registration */}
           <p className="switch-link">
             Don’t have an account?{' '}
-            <button
-              type="button"
-              className="link-button"
-              onClick={onBackToRegister}
-            >
-              Register here
-            </button>
+          <button
+            type="button"
+            className="link-button primary-button"
+            onClick={onBackToRegister}
+          >
+            Register here
+          </button>
           </p>
         </form>
       </div>

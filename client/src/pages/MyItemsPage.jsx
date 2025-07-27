@@ -1,10 +1,12 @@
 // src/pages/MyItemsPage.jsx
 import React from 'react';
 import './MyItemsPage.css';
+import Logo from '../components/Logo';
 
 function MyItemsPage({ purchasedItems, onBackToStore }) {
   return (
     <div className="items-page-container">
+            <Logo />
       <header className="items-header">
         <button className="back-btn" onClick={onBackToStore}>← Back to Store</button>
       </header>

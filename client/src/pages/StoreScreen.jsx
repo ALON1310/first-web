@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import ProductCard from '../components/ProductCard';
 import './StoreScreen.css';
+import Logo from '../components/Logo';
 
 function StoreScreen({ user, cart, onAddToCart, onShowCart, setView, storeItems }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,9 +29,7 @@ function StoreScreen({ user, cart, onAddToCart, onShowCart, setView, storeItems 
   return (
     <div className="store-screen-page">
       <nav className="navbar">
-        <div className="logo">SKY</div>
-        <div className="nav-links">
-        </div>
+        <Logo />
       </nav>
       <header className="store-header">
         <div className="header-controls">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AdminPage.css';
+import Logo from '../components/Logo';
 
 // Helper: Convert File to base64
 function toBase64(file) {
@@ -103,9 +104,8 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
 
   return (
     <div className="admin-container">
-      <h1 className="logo">SKY</h1>
+      <Logo></Logo>
       <h2>Manage Products</h2>
-
       <input
         type="text"
         placeholder="Name"
@@ -126,7 +126,7 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
       >
         <p>Drag & drop an image or choose a file</p>
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        {newItem.image && (
+        {newItem.image && newItem.imageFile && (
           <div className="image-preview">
             <img src={newItem.image} alt="Preview" />
             <button

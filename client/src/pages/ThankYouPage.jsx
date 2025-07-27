@@ -1,6 +1,7 @@
 // src/pages/ThankYouPage.jsx
 import React from 'react';
 import './ThankYouPage.css';
+import Logo from '../components/Logo';
 
 function ThankYouPage({ onGoToStore }) {
   return (

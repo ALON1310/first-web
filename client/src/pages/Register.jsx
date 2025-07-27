@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css';
+import Logo from '../components/Logo';
 
 // Now includes 'admin' as an existing user
 const existingUsers = ['admin', 'john', 'sara', 'mike'];
@@ -97,7 +98,8 @@ function Register({ onLogin, onShowLogin }) {
   return (
     <div className="register-page">
       <div className="register-form">
-        <h2>Create Your Account</h2>
+        <Logo />
+        <h2>Create an Account</h2>
         <form onSubmit={handleSubmit}>
           {/* Username */}
           <div className="form-group">
