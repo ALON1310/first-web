@@ -20,7 +20,7 @@ function MenuButton({ onNavigate, onLogout }) {
           <button onClick={() => handleClick('store')}>🏪 Store</button>
           <button onClick={() => handleClick('cart')}>🛒 Cart</button>
           <button onClick={() => handleClick('myItems')}>🧾 My Items</button>
-          <button onClick={() => onNavigate('admin')}>Admin</button>
+          <button onClick={() => handleClick('admin')}>🧑‍💻 Admin</button>
           <button className="logout" onClick={onLogout}>🚪 Logout</button>
         </div>
       )}

@@ -32,29 +32,30 @@ function StoreScreen({ user, cart, onAddToCart, onShowCart, setView, storeItems 
         <div className="nav-links">
         </div>
       </nav>
-          <input
-            type="text"
-            placeholder="Search jets..."
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-          />
       <header className="store-header">
         <div className="header-controls">
-        </div>
+          <input
+          type="text"
+          placeholder="Search jets..."
+          className="search-input"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
         <button className="cart-button" onClick={onShowCart}>
-            🛒 View Cart ({cart.length})
-          </button>
+          🛒 View Cart ({cart.length})
+        </button>
+        </div>
       </header>
-      
 
       <section className="products-grid">
         {filteredJets.length > 0 ? (
           filteredJets.map(jet => (
-            <ProductCard
-              key={jet.id}
-              jet={jet}
-              onAddToCart={() => handleAddToCart(jet)}
-            />
+          <ProductCard
+            key={jet.id}
+            jet={jet}
+            onAddToCart={() => handleAddToCart(jet)}
+            countInCart={cart.filter(item => item.id === jet.id).length}
+          />
           ))
         ) : (
           <p className="empty-message">No jets match your search.</p>
