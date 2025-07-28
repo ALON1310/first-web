@@ -25,3 +25,8 @@ cd client
 npm install
 npm install @stripe/react-stripe-js @stripe/stripe-js
 npm start
+
+
+### 📦 backend Setup
+cd server
+npm install express cors cookie-parser express-rate-limit

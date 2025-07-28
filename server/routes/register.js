@@ -5,21 +5,46 @@ module.exports = (users, activityLog, saveAllData) => {
   const router = express.Router();
 
   router.post('/', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password required' });
+    // 🔒 בדיקת שדות חובה
+    if (!username || !password || !email) {
+      return res.status(400).json({ error: 'Username, password, and email are required' });
     }
 
-    if (users.find(u => u.username === username)) {
+    const normalizedUsername = username.toLowerCase().trim();
+    console.log('Trying to register:', normalizedUsername);
+    console.log('Current users:', users.map(u => u.username));
+
+    // ❌ מניעת שימוש בשם Admin
+    if (normalizedUsername === 'admin') {
+      return res.status(403).json({ error: 'The username "admin" is reserved' });
+    }
+
+    // ❌ בדיקה אם המשתמש כבר קיים
+    if (users.find(u => u.username.toLowerCase().trim() === normalizedUsername)) {
       return res.status(409).json({ error: 'User already exists' });
     }
 
-    const newUser = { username, password };
+    // ✅ יצירת משתמש חדש עם אימייל
+    const newUser = {
+      username: normalizedUsername,
+      password,
+      email: email.trim()
+    };
+
+    console.log('New user to save:', newUser);
+
     users.push(newUser);
-    activityLog.push({ username, activity: 'register', datetime: new Date().toISOString() });
+    activityLog.push({
+      username: normalizedUsername,
+      activity: 'register',
+      datetime: new Date().toISOString()
+    });
+
     await saveAllData();
 
+    // ✅ שליחת המשתמש ללא סיסמה
     const userWithoutPassword = { ...newUser };
     delete userWithoutPassword.password;
     res.status(201).json(userWithoutPassword);

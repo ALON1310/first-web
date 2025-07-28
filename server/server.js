@@ -86,14 +86,14 @@ const saveAllData = async () => {
     console.error('Error saving data to disk:', err);
   }
 };
-
+console.log('activityLog is:', typeof activityLog);
 // ======================
 // 🛣️ ATTACH ROUTES
 // ======================
 try {
   // Each route module is passed data it needs and returns an Express Router
-  app.use('/api/login', loginRoutes(users, activityLog, saveAllData));
-  app.use('/api/register', registerRoutes(users, saveAllData));
+  app.use('/api/login', loginRoutes(users, activityLog ));
+  app.use('/api/register', registerRoutes(users, activityLog, saveAllData));
   app.use('/api/cart', cartRoutes(carts, activityLog));
   app.use('/api/purchase', purchaseRoutes(purchases, carts, activityLog, saveAllData));
   app.use('/api/products', productsRoutes); // No state needed
