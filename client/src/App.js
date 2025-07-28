@@ -34,18 +34,18 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [, setActivityLog] = useState([]);
 
-const jets = useMemo(() => [
-  { id: 1, name: 'Falcon',       price: 2500000, imageUrl: falcon,       description: 'High-speed private jet.' },
-  { id: 2, name: 'SkyLiner 200', price: 1800000, imageUrl: skyLiner200,  description: 'Luxurious comfort in the skies.' },
-  { id: 3, name: 'AeroSwift',    price: 3200000, imageUrl: aeroSwift,    description: 'Cutting-edge design and performance.' },
-  { id: 4, name: 'CloudCruiser', price: 2100000, imageUrl: cloudCruiser, description: 'Smooth flight guaranteed.' },
-  { id: 5, name: 'JetStream 500',price: 2900000, imageUrl: jetStream500, description: 'State-of-the-art avionics.' },
-  { id: 6, name: 'Eagle Eye',    price: 2300000, imageUrl: eagleEye,     description: 'Premium surveillance jet.' },
-  { id: 7, name: 'SkyDancer',    price: 2750000, imageUrl: skyDancer,    description: 'Elegant and efficient.' },
-  { id: 8, name: 'Nimbus 300',   price: 1950000, imageUrl: nimbus300,    description: 'Compact business jet.' },
-  { id: 9, name: 'Horizon 700',  price: 3500000, imageUrl: horizon700,   description: 'Long-range luxury.' },
-  { id: 10, name: 'Phoenix GT',  price: 2600000, imageUrl: phoenixGT,    description: 'Performance and style.' },
-], []);
+  const jets = useMemo(() => [
+    { id: 1, name: 'Falcon',       price: 2500000, imageUrl: falcon,       description: 'High-speed private jet.' },
+    { id: 2, name: 'SkyLiner 200', price: 1800000, imageUrl: skyLiner200,  description: 'Luxurious comfort in the skies.' },
+    { id: 3, name: 'AeroSwift',    price: 3200000, imageUrl: aeroSwift,    description: 'Cutting-edge design and performance.' },
+    { id: 4, name: 'CloudCruiser', price: 2100000, imageUrl: cloudCruiser, description: 'Smooth flight guaranteed.' },
+    { id: 5, name: 'JetStream 500',price: 2900000, imageUrl: jetStream500, description: 'State-of-the-art avionics.' },
+    { id: 6, name: 'Eagle Eye',    price: 2300000, imageUrl: eagleEye,     description: 'Premium surveillance jet.' },
+    { id: 7, name: 'SkyDancer',    price: 2750000, imageUrl: skyDancer,    description: 'Elegant and efficient.' },
+    { id: 8, name: 'Nimbus 300',   price: 1950000, imageUrl: nimbus300,    description: 'Compact business jet.' },
+    { id: 9, name: 'Horizon 700',  price: 3500000, imageUrl: horizon700,   description: 'Long-range luxury.' },
+    { id: 10, name: 'Phoenix GT',  price: 2600000, imageUrl: phoenixGT,    description: 'Performance and style.' },
+  ], []);
 
   const [storeItems, setStoreItems] = useState(jets);
 
@@ -63,6 +63,9 @@ const jets = useMemo(() => [
 
     setView('store');
   };
+
+  // ✅ FIXED HERE — moved outside and use `user?.username` instead of `userData`
+  console.log('🧠 Logged in as:', user?.username);
 
   const handleLogout = () => {
     if (user) logActivity(user.username, 'logout');
@@ -86,6 +89,7 @@ const jets = useMemo(() => [
       return updated;
     });
   };
+
   const handleConfirmCheckout = async () => {
     try {
       const updatedRes = await fetch(`http://localhost:3001/api/purchase/${user.username}`);
@@ -100,19 +104,19 @@ const jets = useMemo(() => [
     }
   };
 
-
   const fetchPurchasesForUser = async (username) => {
+    console.log('🔎 Fetching purchases for:', username);
     try {
       const res = await fetch(`http://localhost:3001/api/purchase/${username}`);
       if (!res.ok) throw new Error('Failed to load purchases');
       const purchaseRecords = await res.json();
+      console.log('📦 Fetched purchases:', purchaseRecords);
       return purchaseRecords.flatMap(record => record.items || []);
     } catch (err) {
       console.error('❌ Error fetching purchases:', err);
       return [];
     }
   };
-  
 
   const renderWithMenu = (Component, props) => (
     <>
@@ -126,7 +130,7 @@ const jets = useMemo(() => [
       try {
         const res = await fetch('http://localhost:3001/api/products');
         const backendJets = await res.json();
-        setStoreItems([...jets, ...backendJets]); // merge with initial jets
+        setStoreItems([...jets, ...backendJets]);
       } catch (err) {
         console.error('❌ Failed to load jets from backend:', err);
       }
@@ -183,6 +187,7 @@ const jets = useMemo(() => [
   }
 
   if (user && view === 'myItems') {
+    console.log('🛍️ My items loaded:', purchasedItems);
     return renderWithMenu(MyItemsPage, {
       purchasedItems,
       onBackToStore: () => setView('store')

@@ -38,7 +38,8 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
       id: Date.now(),
       name,
       price: parseFloat(price),
-      image: base64Image
+      image: base64Image,
+      description: 'Added via admin panel' // 👈 new!
     };
 
     try {
@@ -47,7 +48,10 @@ function AdminPage({ storeItems, setStoreItems, onBackToStore, activityLog = [],
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newProduct)
+        body: JSON.stringify({
+          ...newProduct,
+          imageUrl: base64Image // 👈 required by PayScreen
+        })
       });
 
       if (!res.ok) throw new Error('Failed to save product to server');

@@ -33,5 +33,10 @@
     "username": "aaajjj",
     "password": "1Q2W3E4R5T",
     "email": "UBUUBUY@IKOK.COM"
+  },
+  {
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "admin"
   }
 ]

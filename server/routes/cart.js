@@ -8,6 +8,17 @@ module.exports = (carts, activityLog, saveAllData) => {
   router.post('/:username', async (req, res) => {
     const username = req.params.username?.trim();
     const items = req.body.items;
+    const cleanedItems = items.map(item => {
+    const rawUrl = String(item.imageUrl || item.image || '');
+    return {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      imageUrl: rawUrl.startsWith('blob:') ? '' : rawUrl,
+      description: item.description || 'No description available'
+    };
+  });
+
 
     if (!username || !Array.isArray(items)) {
       return res.status(400).json({ error: 'Invalid input' });
@@ -15,9 +26,9 @@ module.exports = (carts, activityLog, saveAllData) => {
 
     const index = carts.findIndex(c => c.username === username);
     if (index !== -1) {
-      carts[index].items = items;
+      carts[index].items = cleanedItems;
     } else {
-      carts.push({ username, items });
+      carts.push({ username, items: cleanedItems });
     }
 
     await saveAllData();

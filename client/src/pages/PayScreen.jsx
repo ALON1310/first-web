@@ -54,12 +54,22 @@ function PayScreen({ total, cart, user, onBack, onConfirm, onClearCart, setPurch
     }
 
     try {
-      const cleanedCart = cart.map(item => {
-        const rawUrl = item.imageUrl || item.image || '';
-        const validUrl = rawUrl.startsWith('blob:') ? '' : rawUrl;
-        const { image, ...rest } = item;
-        return { ...rest, imageUrl: validUrl };
-      });
+    const cleanedCart = cart.map(item => {
+      const imageUrl = item.imageUrl
+        ? item.imageUrl
+        : item.image?.startsWith('data:image')
+          ? item.image
+          : '';
+
+      return {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        imageUrl,
+        description: item.description || 'No description available'
+      };
+    });
+
 
       const endpoint = `http://localhost:3001/api/purchase/${username}`;
       console.log('📤 Sending POST to:', endpoint);

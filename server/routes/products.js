@@ -9,6 +9,11 @@ const jetsPath = path.join(__dirname, '../data/jets.json');
 router.post('/', async (req, res) => {
   const newJet = req.body;
   newJet.id = Date.now();
+  const rawUrl = String(newJet.imageUrl || newJet.image || '');
+  newJet.imageUrl = rawUrl.startsWith('blob:') ? '' : rawUrl;
+  newJet.description = newJet.description || 'Added via admin panel';
+  delete newJet.image; // Remove redundant 'image' field if exists
+
 
   console.log('📥 Received new product:', newJet); // ← Add this!
 

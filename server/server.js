@@ -56,7 +56,23 @@ const loadAllData = async () => {
   try {
     const loadedUsers = await loadJSON('users.json');
     users.splice(0, users.length, ...loadedUsers); // 💡 keep reference
+    // 🛡️ Ensure 'admin' user exists
+    const adminUser = {
+      username: 'admin',
+      email: 'admin@example.com',
+      password: 'admin'
+    };
 
+    const adminExists = users.some(
+      u => u.username.toLowerCase() === adminUser.username
+    );
+
+    if (!adminExists) {
+      users.push(adminUser);
+      console.log('👑 Admin user added to users.json');
+      await saveJSON('users.json', users); // Save it immediately
+    }
+    
     const loadedCarts = await loadJSON('carts.json');
     carts.splice(0, carts.length, ...loadedCarts);
 
