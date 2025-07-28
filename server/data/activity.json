@@ -168,5 +168,10 @@
     "username": "alon",
     "datetime": "7/28/2025, 9:26:45 AM",
     "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "admin",
+    "datetime": "7/28/2025, 10:16:31 AM",
+    "activity": "Completed purchase of 1 items"
   }
 ]

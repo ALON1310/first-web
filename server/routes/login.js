@@ -1,34 +1,46 @@
+// ✅ login.js (server/routes/login.js)
 const express = require('express');
 
-function loginRoutes(users, activityLog) {
+module.exports = (users, activityLog) => {
   const router = express.Router();
 
   router.post('/', (req, res) => {
     const { username, password } = req.body;
 
-    const user = users.find(u => u.username === username && u.password === password);
-    if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
+    }
 
-    console.log(`Login attempt: ${username}, password: ${password}`);
-    console.log('Loaded users:', users);
+    const normalizedUsername = username.toLowerCase().trim();
 
-    if (!user || user.password !== password) {
+    const user = users.find(
+      u => u.username.toLowerCase().trim() === normalizedUsername && u.password === password
+    );
+
+    if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    activityLog.push({
-      username,
-      datetime: new Date().toLocaleString(),
-      activity: 'Logged in'
+    // ✅ שמירת עוגייה (cookie) לזיהוי המשתמש בדפדפן
+    res.cookie('skyUser', normalizedUsername, {
+      httpOnly: false,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ימים
+      sameSite: 'Lax'
     });
 
-    res.status(200).json({
-      username: user.username,
-      email: user.email
+    // ✅ הוספת רישום לפעילות
+    activityLog.push({
+      username: normalizedUsername,
+      activity: 'login',
+      datetime: new Date().toISOString()
     });
+
+    // ✅ שליחת תשובה ללא הסיסמה
+    const userWithoutPassword = { ...user };
+    delete userWithoutPassword.password;
+
+    res.status(200).json(userWithoutPassword);
   });
 
   return router;
-}
-
-module.exports = loginRoutes;
+};
