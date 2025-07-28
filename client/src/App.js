@@ -25,7 +25,7 @@ import eagleEye from './assets/jets/EagleEye.png';
 import skyDancer from './assets/jets/SkyDancer.png';
 import nimbus300 from './assets/jets/Nimbus300.png';
 import horizon700 from './assets/jets/Horizon700.png';
-import phoenixGT from './assets/jets/PhoeniGT.png'; // ✅ Check image filename spelling
+import phoenixGT from './assets/jets/PhoeniGT.png';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,17 +55,14 @@ function App() {
   };
 
   const handleLogin = async (userData) => {
+    console.log('👤 Logged in as:', userData);
     setUser(userData);
+    console.log('👤 Logged in as:', userData);
     logActivity(userData.username, 'login');
-
     const loadedItems = await fetchPurchasesForUser(userData.username);
     setPurchasedItems(loadedItems);
-
     setView('store');
   };
-
-  // ✅ FIXED HERE — moved outside and use `user?.username` instead of `userData`
-  console.log('🧠 Logged in as:', user?.username);
 
   const handleLogout = () => {
     if (user) logActivity(user.username, 'logout');
@@ -91,6 +88,11 @@ function App() {
   };
 
   const handleConfirmCheckout = async () => {
+    if (!user?.username) {
+      console.error('❌ No logged-in user found');
+      return;
+    }
+
     try {
       const updatedRes = await fetch(`http://localhost:3001/api/purchase/${user.username}`);
       const updated = await updatedRes.json();
@@ -104,13 +106,12 @@ function App() {
     }
   };
 
+
   const fetchPurchasesForUser = async (username) => {
-    console.log('🔎 Fetching purchases for:', username);
     try {
       const res = await fetch(`http://localhost:3001/api/purchase/${username}`);
       if (!res.ok) throw new Error('Failed to load purchases');
       const purchaseRecords = await res.json();
-      console.log('📦 Fetched purchases:', purchaseRecords);
       return purchaseRecords.flatMap(record => record.items || []);
     } catch (err) {
       console.error('❌ Error fetching purchases:', err);
@@ -118,26 +119,26 @@ function App() {
     }
   };
 
+  const refreshStoreItems = async () => {
+    try {
+      const res = await fetch('http://localhost:3001/api/products');
+      const backendJets = await res.json();
+      setStoreItems([...jets, ...backendJets]);
+    } catch (err) {
+      console.error('❌ Failed to refresh store items:', err);
+    }
+  };
+
+  useEffect(() => {
+    refreshStoreItems();
+  }, []);
+
   const renderWithMenu = (Component, props) => (
     <>
-      <MenuButton onNavigate={setView} onLogout={handleLogout} />
+      <MenuButton user={user} onNavigate={setView} onLogout={handleLogout} />
       <Component {...props} />
     </>
   );
-
-  useEffect(() => {
-    const fetchStoreItems = async () => {
-      try {
-        const res = await fetch('http://localhost:3001/api/products');
-        const backendJets = await res.json();
-        setStoreItems([...jets, ...backendJets]);
-      } catch (err) {
-        console.error('❌ Failed to load jets from backend:', err);
-      }
-    };
-
-    fetchStoreItems();
-  }, []);
 
   if (!user && view === 'login') {
     return <AlreadyReg onLogin={handleLogin} onBackToRegister={() => setView('register')} />;
@@ -187,18 +188,20 @@ function App() {
   }
 
   if (user && view === 'myItems') {
-    console.log('🛍️ My items loaded:', purchasedItems);
     return renderWithMenu(MyItemsPage, {
       purchasedItems,
       onBackToStore: () => setView('store')
     });
   }
 
-  if (user && view === 'admin') {
+  if (user?.username === 'admin' && view === 'admin') {
     return renderWithMenu(AdminPage, {
       storeItems,
       setStoreItems,
-      onBackToStore: () => setView('store')
+      onBackToStore: async () => {
+        await refreshStoreItems(); // 🆕 רענון אחרי הוספת מוצרים
+        setView('store');
+      }
     });
   }
 

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './MenuButton.css';
 
-function MenuButton({ onNavigate, onLogout }) {
+function MenuButton({ user, onNavigate, onLogout }) {
   const [open, setOpen] = useState(false);
 
   const handleClick = (target) => {
@@ -20,7 +20,12 @@ function MenuButton({ onNavigate, onLogout }) {
           <button onClick={() => handleClick('store')}>🏪 Store</button>
           <button onClick={() => handleClick('cart')}>🛒 Cart</button>
           <button onClick={() => handleClick('myItems')}>🧾 My Items</button>
-          <button onClick={() => handleClick('admin')}>🧑‍💻 Admin</button>
+
+          {/* ✅ Only show if admin */}
+          {user?.username === 'admin' && (
+            <button onClick={() => handleClick('admin')}>🧑‍💻 Admin</button>
+          )}
+
           <button className="logout" onClick={onLogout}>🚪 Logout</button>
         </div>
       )}

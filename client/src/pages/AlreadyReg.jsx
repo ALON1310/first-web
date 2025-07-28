@@ -61,8 +61,10 @@ function AlreadyReg({ onLogin, onBackToRegister }) {
       )}; expires=${expires.toUTCString()}; path=/`;
 
       // Notify App of successful login
-      onLogin({ firstName: adminUser.username, email: adminUser.email });
-      return;
+     onLogin({
+        username: adminUser.username,
+        email: adminUser.email
+      });
     }
 
     // 3️⃣ Send login request to backend for registered users
