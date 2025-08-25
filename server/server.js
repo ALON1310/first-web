@@ -15,6 +15,7 @@ const purchaseRoutes = require('./routes/purchase');
 const productsRoutes = require('./routes/products');
 const meRoutes = require('./routes/me');
 const logoutRoutes = require('./routes/logout');
+const reviewsRoutes = require('./routes/reviews');
 
 const app = express(); // Create an Express app instance
 
@@ -26,6 +27,7 @@ const app = express(); // Create an Express app instance
 app.use(cors({
   origin: 'http://localhost:3000', // The client address allowed to connect
   credentials: true // Required to allow cookies to be sent with requests
+  
 }));
 
 // 🛡️ Rate Limiting to prevent abuse and DoS attacks
@@ -115,6 +117,7 @@ try {
   app.use('/api/products', productsRoutes); // No state needed
   app.use('/api/me', meRoutes(users));
   app.use('/api/logout', logoutRoutes());
+  app.use('/api/reviews',  reviewsRoutes(loadJSON, saveJSON));
 } catch (err) {
   console.error('Error attaching routes:', err); // Just in case a route import or setup fails
 }

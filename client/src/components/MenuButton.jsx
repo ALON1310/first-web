@@ -20,6 +20,10 @@ function MenuButton({ user, onNavigate, onLogout }) {
           <button onClick={() => handleClick('store')}>🏪 Store</button>
           <button onClick={() => handleClick('cart')}>🛒 Cart</button>
           <button onClick={() => handleClick('myItems')}>🧾 My Items</button>
+          <button onClick={() => handleClick('about')}>ℹ️ About</button>
+          <button onClick={() => handleClick('reviews')}>⭐ Reviews</button>
+
+
 
           {/* ✅ Only show if admin */}
           {user?.username === 'admin' && (

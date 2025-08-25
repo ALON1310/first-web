@@ -38,5 +38,15 @@
     "username": "admin",
     "email": "admin@example.com",
     "password": "admin"
+  },
+  {
+    "username": "hadar.gafni",
+    "password": "1Q2W3E4R5T",
+    "email": "hadargafni36@gmail.com"
+  },
+  {
+    "username": "ohad",
+    "password": "1Q2W3E4R5T",
+    "email": "ohad@mdmm.com"
   }
 ]

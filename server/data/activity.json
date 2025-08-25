@@ -243,5 +243,125 @@
     "username": "alon",
     "datetime": "7/28/2025, 12:26:02 PM",
     "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "alon",
+    "activity": "login",
+    "datetime": "2025-07-28T15:07:30.011Z"
+  },
+  {
+    "username": "hadar.gafni",
+    "activity": "register",
+    "datetime": "2025-07-28T15:34:59.217Z"
+  },
+  {
+    "username": "hadar.gafni",
+    "datetime": "7/28/2025, 6:35:55 PM",
+    "activity": "Completed purchase of 2 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-07-28T15:36:40.021Z"
+  },
+  {
+    "username": "hadar.gafni",
+    "activity": "login",
+    "datetime": "2025-07-28T15:37:36.702Z"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-07-28T15:38:02.965Z"
+  },
+  {
+    "username": "admin",
+    "datetime": "7/28/2025, 6:38:25 PM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "ohad",
+    "activity": "register",
+    "datetime": "2025-07-30T06:17:04.120Z"
+  },
+  {
+    "username": "ohad",
+    "datetime": "7/30/2025, 9:17:32 AM",
+    "activity": "Completed purchase of 3 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-07-30T06:18:18.668Z"
+  },
+  {
+    "username": "admin",
+    "datetime": "7/30/2025, 9:20:43 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-08-06T07:14:48.491Z"
+  },
+  {
+    "username": "admin",
+    "datetime": "8/6/2025, 10:17:31 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-08-25T07:43:05.625Z"
+  },
+  {
+    "username": "admin",
+    "datetime": "8/25/2025, 10:44:08 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "alon",
+    "activity": "login",
+    "datetime": "2025-08-25T07:45:11.608Z"
+  },
+  {
+    "username": "alon",
+    "datetime": "8/25/2025, 10:45:38 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "alon",
+    "activity": "login",
+    "datetime": "2025-08-25T07:46:08.862Z"
+  },
+  {
+    "username": "alon",
+    "datetime": "8/25/2025, 10:46:40 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-08-25T07:47:12.859Z"
+  },
+  {
+    "username": "alon",
+    "activity": "login",
+    "datetime": "2025-08-25T07:49:19.525Z"
+  },
+  {
+    "username": "alon",
+    "datetime": "8/25/2025, 10:49:41 AM",
+    "activity": "Completed purchase of 1 items"
+  },
+  {
+    "username": "admin",
+    "activity": "login",
+    "datetime": "2025-08-25T07:49:59.338Z"
+  },
+  {
+    "username": "admin",
+    "datetime": "8/25/2025, 10:50:28 AM",
+    "activity": "Completed purchase of 1 items"
   }
 ]

@@ -11,6 +11,8 @@ import PayScreen from './pages/PayScreen';
 import ThankYouPage from './pages/ThankYouPage';
 import MyItemsPage from './pages/MyItemsPage';
 import AdminPage from './pages/AdminPage';
+import AboutPage from './pages/AboutPage';
+import ReviewsPage from './pages/ReviewsPage';
 
 // Components
 import MenuButton from './components/MenuButton';
@@ -193,6 +195,17 @@ function App() {
       onBackToStore: () => setView('store')
     });
   }
+  if (user && view === 'about') {
+  return renderWithMenu(AboutPage, {
+    onBackToStore: () => setView('store')
+  });
+}
+if (user && view === 'reviews') {
+  return renderWithMenu(ReviewsPage, {
+    user,                    // ✅ pass user so we can set author automatically
+    onBackToStore: () => setView('store')
+  });
+}
 
   if (user?.username === 'admin' && view === 'admin') {
     return renderWithMenu(AdminPage, {
