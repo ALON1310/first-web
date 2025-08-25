@@ -13,6 +13,9 @@ import MyItemsPage from './pages/MyItemsPage';
 import AdminPage from './pages/AdminPage';
 import AboutPage from './pages/AboutPage';
 import ReviewsPage from './pages/ReviewsPage';
+import ContactPage from './pages/ContactPage';
+import FAQPage from './pages/FAQPage';
+
 
 // Components
 import MenuButton from './components/MenuButton';
@@ -217,6 +220,19 @@ if (user && view === 'reviews') {
       }
     });
   }
+if (user && view === 'faq') {
+  return renderWithMenu(FAQPage, {
+    onBackToStore: () => setView('store'),
+  });
+}
+
+if (user && view === 'contact') {
+  return renderWithMenu(ContactPage, {
+    user,
+    onBackToStore: () => setView('store'),
+  });
+}
+
 
   return null;
 }

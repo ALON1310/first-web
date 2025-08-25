@@ -16,6 +16,8 @@ const productsRoutes = require('./routes/products');
 const meRoutes = require('./routes/me');
 const logoutRoutes = require('./routes/logout');
 const reviewsRoutes = require('./routes/reviews');
+const contactRoutes = require('./routes/contact');
+
 
 const app = express(); // Create an Express app instance
 
@@ -118,6 +120,7 @@ try {
   app.use('/api/me', meRoutes(users));
   app.use('/api/logout', logoutRoutes());
   app.use('/api/reviews',  reviewsRoutes(loadJSON, saveJSON));
+  app.use('/api/contact', contactRoutes(loadJSON, saveJSON));
 } catch (err) {
   console.error('Error attaching routes:', err); // Just in case a route import or setup fails
 }

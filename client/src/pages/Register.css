@@ -118,7 +118,6 @@ button[type="submit"]:hover {
   font-weight: 700;
   letter-spacing: 1px;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
@@ -153,11 +152,9 @@ button[type="submit"]:hover {
   font-weight: 700;
   font-family: 'Segoe UI', 'Inter', sans-serif;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 2;
   position: relative;
 }
-
 

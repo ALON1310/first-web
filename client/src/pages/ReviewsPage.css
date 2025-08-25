@@ -237,4 +237,31 @@
 .review-card { position: relative; }
 .delete-btn { position:absolute; top:.5rem; right:.5rem; background:transparent; border:0; cursor:pointer; font-size:18px; opacity:.7; }
 .delete-btn:hover { opacity:1; }
+/* Admin inbox */
+.inbox-wrap { max-width: 1100px; margin: 0 auto; }
+.inbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.msg-card {
+  background: rgba(255,255,255,0.1);
+  padding: 16px;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
+}
+.msg-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.msg-head .row { display: flex; align-items: baseline; gap: 4px; }
+.msg-head time { opacity: .8; font-size: .9rem; }
+.msg-meta { display: grid; gap: 4px; opacity: .95; margin-bottom: 10px; font-size: .95rem; }
+.msg-body { white-space: pre-wrap; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; }
+.msg-actions { display: flex; justify-content: flex-end; }
+.delete-button {
+  background: linear-gradient(90deg, #ff4e50, #f9d423);
+  color: #000; border: none; border-radius: 8px; padding: 10px 14px;
+  font-weight: 700; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+}
+.delete-button:hover { transform: scale(1.05); box-shadow: 0 0 12px rgba(255,255,255,.3); }
+
+/* שמירה על הריווח שלא ייגעו אחד בשני */
+.contact-form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 720px){ .contact-form .two { grid-template-columns: 1fr; } }
 

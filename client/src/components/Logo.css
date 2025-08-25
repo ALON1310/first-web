@@ -23,9 +23,14 @@
   font-weight: 700;
   font-family: 'Segoe UI', 'Inter', sans-serif;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
+
+  /* ✨ keep both the standard and the prefixed versions */
+  -webkit-background-clip: text;  /* Safari / old Chromium */
+  background-clip: text;          /* Standard */
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: transparent;             /* Standard fallback */
+
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
   z-index: 2;
   position: relative;
   text-align: center;

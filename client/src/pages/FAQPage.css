@@ -1,0 +1,75 @@
+/* src/pages/FAQPage.css — styled like AdminPage/PayScreen */
+.faq-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  font-family: 'Segoe UI', Inter, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faq-title {
+  font-size: 2.2rem;
+  margin: 8px 0 6px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.faq-subtitle {
+  opacity: 0.9;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 800px;
+}
+
+.faq-list {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 14px;
+  padding: 14px 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+  color: #f0f3f6;
+}
+
+.faq-cta {
+  margin-top: 22px;
+}
+
+.btn-outline {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-outline:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+}
