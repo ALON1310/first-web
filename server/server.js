@@ -26,8 +26,8 @@ const app = express(); // Create an Express app instance
 // Allow frontend to make requests to backend with cookies
 app.use(cors({
   origin: 'http://localhost:3000', // The client address allowed to connect
-  credentials: true // Required to allow cookies to be sent with requests
-  
+  credentials: true, // Required to allow cookies to be sent with requests
+  allowedHeaders: ['Content-Type', 'X-Username']
 }));
 
 // 🛡️ Rate Limiting to prevent abuse and DoS attacks

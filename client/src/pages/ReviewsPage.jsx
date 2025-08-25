@@ -25,13 +25,11 @@ function ReviewsPage({ user, onBackToStore }) {
   const [aspectFilter, setAspectFilter] = useState('All');
   const [search, setSearch] = useState('');
 
-  // Form state (for adding review)
-  const [form, setForm] = useState({
-    rating: 5,
-    aspect: 'Service',
-    title: '',
-    text: ''
-  });
+  // show admin controls only for admin
+  const isAdmin = (user?.username || '').toLowerCase() === 'admin';
+
+  // add review form
+  const [form, setForm] = useState({ rating: 5, aspect: 'Service', title: '', text: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
@@ -52,21 +50,18 @@ function ReviewsPage({ user, onBackToStore }) {
     return () => { cancelled = true; };
   }, []);
 
-  const aspects = useMemo(() => {
-    const set = new Set(reviews.map(r => r.aspect));
-    return ['All', ...Array.from(set)];
-  }, [reviews]);
+  const aspects = useMemo(() => ['All', ...Array.from(new Set(reviews.map(r => r.aspect)))], [reviews]);
 
   const filtered = useMemo(() => {
-    const needle = search.trim().toLowerCase();
+    const q = search.trim().toLowerCase();
     return reviews.filter(r => {
-      const okAspect = aspectFilter === 'All' || r.aspect === aspectFilter;
-      const okSearch =
-        !needle ||
-        r.title?.toLowerCase().includes(needle) ||
-        r.text?.toLowerCase().includes(needle) ||
-        r.author?.toLowerCase().includes(needle);
-      return okAspect && okSearch;
+      const byAspect = aspectFilter === 'All' || r.aspect === aspectFilter;
+      const byText =
+        !q ||
+        r.title?.toLowerCase().includes(q) ||
+        r.text?.toLowerCase().includes(q) ||
+        r.author?.toLowerCase().includes(q);
+      return byAspect && byText;
     });
   }, [reviews, aspectFilter, search]);
 
@@ -91,7 +86,7 @@ function ReviewsPage({ user, onBackToStore }) {
       const res = await fetch('http://localhost:3001/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // keep cookies if you use them
+        credentials: 'include',
         body: JSON.stringify({
           author: user.username,
           rating: Number(form.rating),
@@ -106,13 +101,32 @@ function ReviewsPage({ user, onBackToStore }) {
         throw new Error(err.error || 'Failed to submit review.');
       }
       const created = await res.json();
-      // Prepend new review to current list
       setReviews(prev => [created, ...prev]);
       setForm({ rating: 5, aspect: 'Service', title: '', text: '' });
     } catch (err) {
       setSubmitError(err.message || 'Failed to submit review.');
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  // admin-only delete
+  const handleDelete = async (id) => {
+    if (!isAdmin) return;
+    if (!window.confirm('Delete this review?')) return;
+    try {
+      const res = await fetch(`http://localhost:3001/api/reviews/${id}`, {
+        method: 'DELETE',
+        headers: { 'X-Username': user.username },
+        credentials: 'include',
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Failed to delete review.');
+      }
+      setReviews(prev => prev.filter(r => r.id !== id));
+    } catch (e) {
+      alert(e.message);
     }
   };
 
@@ -128,34 +142,22 @@ function ReviewsPage({ user, onBackToStore }) {
         </p>
       </header>
 
-      {/* Post-a-Review form (visible only when logged-in) */}
+      {/* Post-a-Review form */}
       {user && (
         <form className="review-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label>
               <span>Rating</span>
-              <select
-                value={form.rating}
-                onChange={e => setForm(f => ({ ...f, rating: e.target.value }))}
-              >
+              <select value={form.rating} onChange={e => setForm(f => ({ ...f, rating: e.target.value }))}>
                 {[5,4,3,2,1].map(v => <option key={v} value={v}>{v}</option>)}
               </select>
             </label>
-
             <label>
               <span>Aspect</span>
-              <select
-                value={form.aspect}
-                onChange={e => setForm(f => ({ ...f, aspect: e.target.value }))}
-              >
-                <option>Service</option>
-                <option>Fleet</option>
-                <option>Delivery</option>
-                <option>After-sale</option>
-                <option>Maintenance</option>
-                <option>FBO</option>
-                <option>Charter</option>
-                <option>Other</option>
+              <select value={form.aspect} onChange={e => setForm(f => ({ ...f, aspect: e.target.value }))}>
+                <option>Service</option><option>Fleet</option><option>Delivery</option>
+                <option>After-sale</option><option>Maintenance</option><option>FBO</option>
+                <option>Charter</option><option>Other</option>
               </select>
             </label>
           </div>
@@ -163,12 +165,9 @@ function ReviewsPage({ user, onBackToStore }) {
           <label className="full">
             <span>Title</span>
             <input
-              type="text"
-              placeholder="Concierge-level support"
-              value={form.title}
-              onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-              maxLength={120}
-              required
+              type="text" placeholder="Concierge-level support"
+              value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+              maxLength={120} required
             />
           </label>
 
@@ -176,11 +175,8 @@ function ReviewsPage({ user, onBackToStore }) {
             <span>Review</span>
             <textarea
               placeholder="Tell us about your experience…"
-              value={form.text}
-              onChange={e => setForm(f => ({ ...f, text: e.target.value }))}
-              rows={4}
-              maxLength={1200}
-              required
+              value={form.text} onChange={e => setForm(f => ({ ...f, text: e.target.value }))}
+              rows={4} maxLength={1200} required
             />
           </label>
 
@@ -203,14 +199,11 @@ function ReviewsPage({ user, onBackToStore }) {
               {aspects.map(a => <option key={a} value={a}>{a}</option>)}
             </select>
           </label>
-
           <label className="field">
             <span>Search</span>
             <input
-              type="text"
-              placeholder="Search title, text or author…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
+              type="text" placeholder="Search title, text or author…"
+              value={search} onChange={e => setSearch(e.target.value)}
             />
           </label>
         </div>
@@ -232,7 +225,29 @@ function ReviewsPage({ user, onBackToStore }) {
       ) : (
         <section className="reviews-grid">
           {filtered.map(r => (
-            <article key={r.id} className="review-card">
+            <article key={r.id} className="review-card" style={{ position: 'relative' }}>
+              {isAdmin && (
+                <button
+                  type="button"
+                  className="delete-btn"
+                  title="Delete review"
+                  aria-label="Delete review"
+                  onClick={() => handleDelete(r.id)}
+                  style={{
+                    position: 'absolute',
+                    top: 8,
+                    right: 8,
+                    background: 'transparent',
+                    border: 'none',
+                    fontSize: 18,
+                    cursor: 'pointer',
+                    opacity: 0.85
+                  }}
+                >
+                  🗑️
+                </button>
+              )}
+
               <header className="review-head">
                 <Stars value={r.rating || 0} />
                 <span className="review-aspect">{r.aspect}</span>
@@ -245,9 +260,7 @@ function ReviewsPage({ user, onBackToStore }) {
               </footer>
             </article>
           ))}
-          {!filtered.length && (
-            <div className="empty">No reviews match your filters.</div>
-          )}
+          {!filtered.length && <div className="empty">No reviews match your filters.</div>}
         </section>
       )}
 

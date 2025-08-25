@@ -67,5 +67,29 @@ module.exports = function reviewsRoutes(loadJSON, saveJSON) {
     }
   });
 
+  // DELETE /api/reviews/:id  (admin-only)
+  router.delete('/:id', async (req, res) => {
+    try {
+      const who = String(req.header('X-Username') || '').toLowerCase();
+      if (who !== 'admin') {
+        return res.status(403).json({ error: 'Only admin can delete reviews.' });
+      }
+
+      const id = String(req.params.id);
+      const all = await loadJSON('reviews.json');
+      const idx = all.findIndex(r => String(r.id) === id);
+      if (idx === -1) {
+        return res.status(404).json({ error: 'Review not found.' });
+      }
+
+      const [removed] = all.splice(idx, 1);
+      await saveJSON('reviews.json', all);
+      return res.json({ ok: true, removed });
+    } catch (err) {
+      console.error('DELETE /api/reviews/:id error:', err);
+      return res.status(500).json({ error: 'Failed to delete review.' });
+    }
+  });
+
   return router;
 };

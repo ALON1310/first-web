@@ -234,3 +234,7 @@
 @media (max-width: 620px) {
   .review-form .form-row { grid-template-columns: 1fr; }
 }
+.review-card { position: relative; }
+.delete-btn { position:absolute; top:.5rem; right:.5rem; background:transparent; border:0; cursor:pointer; font-size:18px; opacity:.7; }
+.delete-btn:hover { opacity:1; }
+
